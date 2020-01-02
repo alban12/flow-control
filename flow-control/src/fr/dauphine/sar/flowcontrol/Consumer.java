@@ -3,6 +3,6 @@ package fr.dauphine.sar.flowcontrol;
 import java.io.*;
 import java.net.*;
 
-public class Consumer {
+public class Consumer extends Client {
 
 }
