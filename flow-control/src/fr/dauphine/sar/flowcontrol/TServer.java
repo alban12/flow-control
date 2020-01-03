@@ -22,7 +22,7 @@ public class TServer  extends Thread{
 			
 			while(true) {
 				Socket s = ss.accept();
-				new Client(s).start();
+				new Communication(s).start();
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
