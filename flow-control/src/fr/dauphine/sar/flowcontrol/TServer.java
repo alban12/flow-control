@@ -9,6 +9,7 @@ public class TServer  extends Thread{
 	private static final int N=0;
 	public static final int port = 1234;
 	
+	
 	public TServer()
 	{
 		
