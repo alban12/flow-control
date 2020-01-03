@@ -1,0 +1,89 @@
+Proposition de primitifs:
+-------------------------
+1- Produire(m)
+2- Consommer()
+3- Sur_reception_de(T,reponse)
+4- Sur_reception_de(j,req)
+5- Sur_reception_de(j,m)
+
+
+Les variables:
+---------------
+
+Côté Producteur(i):
+--------------------
+Rep(i): Initialisé à null, désigne la variable contenant la réponse du site T suite à la demande d'un producteur P(i).
+
+-------------------
+Côté Consommateur(i):
+-------------------- 
+Rep(i): Initialisé à null, désigne la variable contenant la réponse du site T suite à la demande d'un consommateur C(i).
+Côté Tampon:
+------------------ 
+T[N]: Tableau de taille N, contenant les messages(producteurs et consommateurs) à consommer.
+Nbmess(t): Initialisé à 0, indique le nombre de messages dans le tampon.
+in(t): Initialisé à 0, indique l'indice d'insertion dans le tampon.4
+out(t): Initialisé à 0, indique l'indice d'extraction dans le tampon.
+
+
+Algorithme du Producteur(pi):
+-----------------------------
+Produire(m):
+	Début
+		Envoyer_à(T,req);
+		Attendre(Rep != null);
+	Fin
+	
+Sur_reception_de(T, reponse)
+	Début
+		Rep(i) = reponse;
+		Si(Rep(i) == Ack) Alors
+			Envoyer_à(T,m);
+		Sinon
+			Rep(i) = null; // Car Tampon plein.
+	Fin
+
+Algorithme du Consommateur C(i):
+--------------------------------
+Consommer()
+	Début
+		Envoyer_à(T,req);
+		Attendre(Rep(i) != null);
+	Fin
+	
+Sur_reception_de(T,reponse)
+	Début
+		Rep(i) = reponse
+		Si(Rep(i) != Ack) Alors
+			Rep(i) = null;
+	Fin
+	
+Algorithme du site T:
+---------------------
+Sur_reception_de(j,req)
+	Début
+		Si(j est un consommateur) Alors
+			Si(Nbmess > 0) Alors
+				m = T[out];
+				out = (out + 1) % N;
+				Nbmess--;
+				Envoyer_à(j,Ack);
+			Sinon Envoyer_à(j,Rej);
+			Fin si
+		Sinon // C'est-à-dire que j est un producteur
+		
+			Si(Nbmess < N) Alors // On vérifie si le tampon n'est pas plein
+				Envoyer_à(j,Ack);
+			Sinon
+				Envoyer_à(j,Rej);
+			Finsi
+		Finsi
+	Fin
+	
+			
+Sur_reception_de(j,m)
+	Début
+		T[in] = m;
+		in = (in + 1) % N;
+		Nbmess++;
+	Fin
