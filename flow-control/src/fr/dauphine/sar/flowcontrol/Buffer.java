@@ -37,13 +37,23 @@ public class Buffer {
 	
 	public boolean isFull()
 	{
-		return (takenPositions()==elements.length);
+		boolean ans=true;
+		for (String s:elements) 
+		{
+			if (s==null) ans=false;
+		}
+		return ans;
 	}
 	
 	
 	public boolean isEmpty()
 	{
-		return (freePositions()==0);
+		boolean ans=true;
+		for (String s:elements) 
+		{
+			if (s!=null) ans=false;
+		}
+		return ans;
 	}
 
 	private int takenPositions()
