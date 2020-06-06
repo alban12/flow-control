@@ -1,5 +1,5 @@
 # Flow Control
-<strong>Projet SAR</strong> - Contrôle de flux sur un tampon dans un serveur multi-threadée T pour plusieurs producteurs et plusieurs consommateurs
+<strong>Distributed system project</strong> - flow control of a buffer in a multi-threaded server T for multiple producers and multiple consumers
 
 # Get started 
 
